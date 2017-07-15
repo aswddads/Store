@@ -1,13 +1,13 @@
 package tj.com.store;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import tj.com.latte.activities.ProxyActivity;
+import tj.com.latte.delegate.LatteDelegate;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ProxyActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public LatteDelegate setRootDelegate() {
+        return new StoreDelegate();
     }
 }
