@@ -40,6 +40,7 @@ public class RequestCallbacks implements retrofit2.Callback<String> {
                 ERROR.onError(response.code(), response.message());
             }
         }
+
         stopLoading();
     }
 

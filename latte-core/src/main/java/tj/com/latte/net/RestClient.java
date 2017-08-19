@@ -16,6 +16,7 @@ import tj.com.latte.net.callback.IFailure;
 import tj.com.latte.net.callback.IRequest;
 import tj.com.latte.net.callback.ISuccess;
 import tj.com.latte.net.callback.RequestCallbacks;
+import tj.com.latte.net.download.DownLoadHandler;
 import tj.com.latte.ui.LatteLoader;
 import tj.com.latte.ui.LoaderStyle;
 
@@ -28,11 +29,14 @@ public class RestClient {
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final IRequest REQUEST;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
     private final RequestBody BODY;
-    private LoaderStyle LOADER_STYLE;
+    private final LoaderStyle LOADER_STYLE;
     private final File FILE;
     private final Context CONTEXT;
 
@@ -45,7 +49,10 @@ public class RestClient {
                       RequestBody body,
                       File file,
                       Context context,
-                      LoaderStyle loaderStyle) {
+                      LoaderStyle loaderStyle,
+                      String downloaddir,
+                      String extension,
+                      String name) {
         this.URL = url;
         PARAMS.putAll(params);
         this.REQUEST = request;
@@ -56,6 +63,9 @@ public class RestClient {
         this.FILE = file;
         this.CONTEXT = context;
         this.LOADER_STYLE = loaderStyle;
+        this.DOWNLOAD_DIR = downloaddir;
+        this.NAME = name;
+        this.EXTENSION = extension;
     }
 
     private static RestClientBuilder builder() {
@@ -144,6 +154,10 @@ public class RestClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+    public final void download(){
+        new DownLoadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR)
+                .handleDownload();
     }
 
 }
