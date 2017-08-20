@@ -68,7 +68,7 @@ public class RestClient {
         this.EXTENSION = extension;
     }
 
-    private static RestClientBuilder builder() {
+    public static RestClientBuilder builder() {
         return new RestClientBuilder();
     }
 
